@@ -1,7 +1,5 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
 import { getDatabase, ref, set, get, query, orderByChild, equalTo } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-analytics.js";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -18,7 +16,6 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
-const analytics = getAnalytics(app);
 
 // Function to submit Lakorn series information to Firebase
 document.getElementById('LakornForm').addEventListener('submit', function(event) {
@@ -54,27 +51,25 @@ function downloadLakornData(filteredEpisodeNumber = null) {
     get(seriesRef).then((snapshot) => {
         if (snapshot.exists()) {
             const data = snapshot.val();
-            const rows = [];
-            for (let key in data) {
-                rows.push({
-                    Series_Name: data[key].seriesName,
-                    Episode_Number: data[key].episodeNumber,
-                    Number_Watched: data[key].numberWatched
-                });
-            }
+            const rows = Object.values(data).map(item => ({
+                Series_Name: item.seriesName,
+                Episode_Number: item.episodeNumber,
+                Number_Watched: item.numberWatched
+            }));
 
             const ws = XLSX.utils.json_to_sheet(rows);
             const wb = XLSX.utils.book_new();
             XLSX.utils.book_append_sheet(wb, ws, "LakornInformation");
 
-            const fileName = filteredEpisodeNumber ? '${filteredEpisodeNumber}_lakorn_information.xlsx : lakorn_information.xlsx':
+            // Generate Excel file and trigger the download
+            const fileName = filteredEpisodeNumber ? `${filteredEpisodeNumber}_Series_information.xlsx` : 'Series_information.xlsx';
             XLSX.writeFile(wb, fileName);
         } else {
             alert('No data available to download.');
         }
     }).catch((error) => {
         console.error('Error fetching data: ', error.message);
-        alert('Failed to download data.');
+        alert('Failed to download data: ' + error.message);
     });
 }
 
