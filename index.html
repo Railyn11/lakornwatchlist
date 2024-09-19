@@ -5,11 +5,23 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Lakorn Watchlist</h1>
+    <h1>LAKORN WATCHLIST</h1>
     <div class="box">
         <div class="form">
             <form id="LakornForm" autocomplete="off">
-                <h2>Enter Series Information</h2>
+                <h2><em>Enter Series Information</em></h2>
+                <style>
+                    input::placeholder {
+                        color: #020202; /* Change this color as needed */
+                        opacity: 1; /* Optional: adjust opacity */
+                    }
+            
+                    input {
+                        padding: 10px;
+                        border: 1px solid #ccc;
+                        border-radius: 4px;
+                    }
+                </style>
                 <div class="inputbox">
                     <input type="text" id="seriesName" placeholder="Series Name" required autocomplete="off">
                 </div>
@@ -25,7 +37,6 @@
     </div>
 
     <button id="downloadAllBtn" class="download-btn">Retrieve All Series Data</button>
-    <button id="downloadByEpisodeNumberBtn" class="download-btn">Retrieve by Episode Number</button>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script type="module" src="index.js"></script>
