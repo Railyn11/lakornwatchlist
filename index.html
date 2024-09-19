@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Firebase Lakorn Watchlist</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Lakorn Watchlist</h1>
+    <div class="box">
+        <div class="form">
+            <form id="LakornForm" autocomplete="off">
+                <h2>Enter Series Information</h2>
+                <div class="inputbox">
+                    <input type="text" id="seriesName" placeholder="Series Name" required autocomplete="off">
+                </div>
+                <div class="inputbox">
+                    <input type="number" id="episodeNumber" placeholder="Episode Number" required autocomplete="off">
+                </div>
+                <div class="inputbox">
+                    <input type="number" id="numberWatched" placeholder="Number Watched" required autocomplete="off">
+                </div>
+                <button type="submit" class="sub" id="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <button id="downloadAllBtn" class="download-btn">Retrieve All Series Data</button>
+    <button id="downloadByEpisodeNumberBtn" class="download-btn">Retrieve by Episode Number</button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script type="module" src="index.js"></script>
+</body>
+</html>
